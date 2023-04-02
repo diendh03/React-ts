@@ -1,0 +1,23 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productName": "Tran Anh Duc1",
+      "price": "ụ"
+    },
+    {
+      "productName": "duy dep trai",
+      "price": "â",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Duong Van Duy",
+      "email": "duy@gmail.com",
+      "password": "123456",
+      "confirmPass": "123456"
+    }
+  ]
+}
