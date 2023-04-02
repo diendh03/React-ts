@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { ICate } from "../../interface/Interface";
 import { useNavigate } from "react-router-dom";
 interface IPropCategory {
-  category: ICate[];
   onAdd: (category: ICate) => void;
 }
 const AddCategory = (props: IPropCategory) => {

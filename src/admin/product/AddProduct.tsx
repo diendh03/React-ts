@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { IProduct } from "../../interface/Interface";
 interface IPropProduct {
-  products: IProduct[];
-
   onAdd: (product: IProduct) => void;
 }
 const AddProduct = (props: IPropProduct) => {
