@@ -5,11 +5,11 @@ const AdminLayout = () => {
   return (
     <div>
       Admin
-      <header>aasdasdad</header>
+      <header></header>
       <main>
         <Outlet />
       </main>
-      <footer>ádadasdasdasdad</footer>
+      <footer></footer>
     </div>
   );
 };

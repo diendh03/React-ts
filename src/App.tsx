@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 //Layout
 import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-
 import Dashboard from "./admin/Dashboard";
 //SanPham
 import ProductManagement from "./admin/product/productManagement";
@@ -38,6 +36,8 @@ import { useNavigate } from "react-router-dom";
 import AddCategory from "./admin/category/addCategory";
 import CategoryManagement from "./admin/category/categoryManagement";
 import UpdateCategory from "./admin/category/updateCategory";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const navigate = useNavigate();
@@ -103,18 +103,15 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        //Dang nhap or dang ki
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        //Client
         <Route path="/" element={<ClientLayout />}>
           <Route index element={<HomePage />} />
-          <Route
-            path="/products"
-            element={
-              <ProductPage products={products} onRemove={onHandleRemove} />
-            }
-          >
-            <Route path="/products/:id" element={<ProductDetailPage />} />
-          </Route>
+          <Route path="/products/:id" element={<ProductDetailPage />} />
         </Route>
-
+        //Admin
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="categories">
