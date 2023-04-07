@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Route, Routes, useParams } from "react-router-dom";
 //Layout
 import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -10,12 +10,15 @@ import ProductManagement from "./admin/product/productManagement";
 import AddProduct from "./admin/product/AddProduct";
 import UpdateProduct from "./admin/product/UpdateProduct";
 //DangNhap
-
+import SignIn from "./pages/SignIn";
+import SignUp, { SignupForm } from "./pages/SignUp";
+import PrivateRouter from "./components/PrivateRouter";
+import { authenticated, isAuthenticate } from "./utils/localStorage";
 //Layout
 import ClientLayout from "./layout/ClientLayout";
 import AdminLayout from "./layout/AdminLayout";
 //type
-import { ICate, IProduct, IUser } from "./interface/Interface";
+import { ICartItem, ICate, IProduct, IUser } from "./interface/Interface";
 //User
 import { addUser, signin } from "./api/user";
 //router
@@ -36,8 +39,9 @@ import { useNavigate } from "react-router-dom";
 import AddCategory from "./admin/category/addCategory";
 import CategoryManagement from "./admin/category/categoryManagement";
 import UpdateCategory from "./admin/category/updateCategory";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import UserList from "./admin/product/productMana";
+import CartList from "./pages/CartList";
+import PrivateRouterMem from "./components/PrivateRouterMem";
 
 function App() {
   const navigate = useNavigate();
@@ -81,8 +85,45 @@ function App() {
     const newData = categories.filter((pro) => pro._id != category._id);
     updateCate(category).then(() => setCategory([...newData, category]));
   };
+  ///ADD to cart
+
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      return JSON.parse(savedCartItems);
+    } else {
+      return [];
+    }
+  });
+
+  const handleAddToCart = (product: any, quantity: number) => {
+    const existingCartItem = cartItems.find(
+      (item: ICartItem) => item.product._id === product._id
+    );
+    if (existingCartItem) {
+      setCartItems(
+        cartItems.map((item: ICartItem) =>
+          item.product._id === product._id
+            ? {
+                ...item,
+                quantity: item.quantity + quantity,
+              }
+            : item
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { product, quantity }]);
+    }
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
   ///User
-  const onHandleAddUser = (user: IUser) => {
+  const onHandleAddUser = (user: SignupForm) => {
     addUser(user)
       .then(() => alert("Đăng ký thành công"))
       .then(() => navigate("/signin"));
@@ -91,6 +132,15 @@ function App() {
     signin(user)
       .then(({ data }) => {
         localStorage.setItem("accessToken", data.accessToken);
+        authenticated(data.user);
+      })
+      .then(() => {
+        const user = isAuthenticate();
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       })
       .catch((error) => {
         alert(error.response.data.message);
@@ -104,15 +154,33 @@ function App() {
     <div className="App">
       <Routes>
         //Dang nhap or dang ki
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn onAdd={onHandleSignin} />} />
+        <Route path="/signup" element={<SignUp onAdd={onHandleAddUser} />} />
         //Client
         <Route path="/" element={<ClientLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/products/:id" element={<ProductDetailPage />} />
+          <Route index element={<HomePage products={products} />} />
+          <Route
+            path="/carts"
+            element={
+              <PrivateRouterMem>
+                <CartList item={cartItems} />
+              </PrivateRouterMem>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={<ProductDetailPage onAddToCart={handleAddToCart} />}
+          />
         </Route>
         //Admin
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <PrivateRouter>
+              <AdminLayout />
+            </PrivateRouter>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="categories">
             <Route
@@ -142,13 +210,15 @@ function App() {
             <Route
               index
               element={
-                <ProductManagement
-                  products={products}
-                  onRemove={onHandleRemove}
-                />
+                <UserList products={products} onRemove={onHandleRemove} />
               }
             />
-            <Route path="add" element={<AddProduct onAdd={onHandleAdd} />} />
+            <Route
+              path="add"
+              element={
+                <AddProduct categories={categories} onAdd={onHandleAdd} />
+              }
+            />
             <Route
               path="update/:id"
               element={

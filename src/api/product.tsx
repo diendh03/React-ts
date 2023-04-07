@@ -1,9 +1,10 @@
 import { IProduct } from "../interface/Interface";
 import instance from "./instance";
-const getAllProduct = () => {
+const getAllProduct = (params?: any) => {
+  if (params) return instance.get(`/products?_page=${params.page}`);
   return instance.get("/products");
 };
-const getProductId = (id: string | number) => {
+const getProductId = (id: string | undefined) => {
   return instance.get("/products/" + id);
 };
 const deleteProduct = (id: string | number) => {

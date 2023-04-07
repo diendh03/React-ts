@@ -1,18 +1,20 @@
 import React from "react";
 
 interface IProduct {
-  _id: string | number;
-  name: string;
+  _id?: string | number;
+  productName: string;
   price: number;
-  des: string;
+  originalPrice: number;
+  description: string;
+  image: string;
   categoryId: string;
 }
 interface IUser {
-  _id: string | number;
+  _id?: string | number;
   name?: string;
-  email?: string;
-  password?: string;
-  confirmPass?: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
 }
 
 interface IPropUser {
@@ -24,6 +26,14 @@ interface IPropUser {
 interface ICate {
   _id: string | number;
   name: string;
+}
+interface ICartItem {
+  product: {
+    _id: string;
+    name: string;
+    price: number;
+  };
+  quantity: number;
 }
 // interface IPropProductAdd {
 //   //   products: IProduct[];
@@ -37,4 +47,4 @@ interface ICate {
 //   //   onAdd: (inputValue: IProduct) => void;
 //   onUpdate: (id: number | string, product: IProduct) => void;
 // }
-export type { IProduct, IUser, ICate, IPropUser };
+export type { IProduct, IUser, ICate, ICartItem, IPropUser };

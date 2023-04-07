@@ -81,7 +81,7 @@ const HeaderLayout = () => {
 
           <Link
             className="pl-3 inline-block no-underline hover:text-black"
-            to="#"
+            to="/carts"
           >
             <svg
               className="fill-current hover:text-black"

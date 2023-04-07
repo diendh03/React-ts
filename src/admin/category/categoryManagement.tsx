@@ -34,7 +34,7 @@ const CategoryManagement = (props: IPropCategory) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((category, index) => {
+          {data?.map((category, index) => {
             return (
               <tr key={category._id}>
                 <td>{index + 1}</td>

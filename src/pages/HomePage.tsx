@@ -3,16 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { IProduct } from "../models";
 import Product from "../components/products";
-const HomePage = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/products")
-      .then((res) => {
-        setProducts(res.data);
-      })
-      .catch((err) => {});
-  }, []);
+const HomePage = (props: any) => {
   return (
     <>
       <section className="bg-white py-8">
@@ -59,8 +50,8 @@ const HomePage = () => {
               </div>
             </div>
           </nav>
-          {products.map((product) => (
-            <Product key={product.id} data={product} />
+          {props.products.docs?.map((product: any) => (
+            <Product key={product._id} data={product} />
           ))}
         </div>
       </section>

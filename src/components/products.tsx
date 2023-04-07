@@ -1,5 +1,5 @@
 import React from "react";
-import { IProduct } from "../models";
+import { IProduct } from "../interface/Interface";
 import { Link } from "react-router-dom";
 type Props = {
   data: IProduct;
@@ -7,13 +7,10 @@ type Props = {
 const Product = ({ data }: Props) => {
   return (
     <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-      <Link to={`/products/${data.id}`}>
-        <img
-          className="hover:grow hover:shadow-lg"
-          src={data.images?.[0].base_url}
-        />
+      <Link to={`/products/${data._id}`}>
+        <img className="hover:grow hover:shadow-lg" src={data.image} />
         <div className="pt-3 flex items-center justify-between">
-          <p className="">{data.name}</p>
+          <p className="">{data.productName}</p>
           <svg
             className="h-6 w-6 fill-current text-gray-500 hover:text-black"
             xmlns="http://www.w3.org/2000/svg"
