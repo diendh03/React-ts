@@ -7,7 +7,11 @@ type Props = {
 };
 const SignIn = (Props: Props) => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<IUser>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUser>();
   const onHandleSubmit: SubmitHandler<IUser> = async (data) => {
     Props.onAdd(data);
   };

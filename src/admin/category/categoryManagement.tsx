@@ -1,60 +1,77 @@
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 import { ICate } from "../../interface/Interface";
+import { Table } from "antd";
+import { Button, Space, Popconfirm, message } from "antd";
+import type { ColumnsType, TableProps } from "antd/es/table";
 
 interface IPropCategory {
   categories: ICate[];
   onRemove: (id: string | number) => void;
 }
+interface DataType {
+  key: string | number;
+  _id: string | number;
+  name: string;
+}
+
 const CategoryManagement = (props: IPropCategory) => {
   // console.log(props);
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "Category Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <p>{text}</p>,
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (record) => {
+        return (
+          <Space size="middle">
+            <Popconfirm
+              title="Mày dám xóa -)) xóa rồi đừng tiếc"
+              onConfirm={() => {
+                removeCategory(record._id);
+              }}
+            >
+              <Button type="primary" style={{ backgroundColor: "red" }}>
+                Delete
+              </Button>
+            </Popconfirm>
+
+            <Button type="primary" style={{ backgroundColor: "orange" }}>
+              <Link to={`/admin/categories/update/${record._id}`}>Update</Link>
+            </Button>
+          </Space>
+        );
+      },
+    },
+  ];
+
   const [data, setData] = useState<ICate[]>([]);
   useEffect(() => {
-    // console.log(props.products);
     setData(props.categories);
   }, [props]);
-
+  const data1: DataType[] = data.map((item: ICate, index) => {
+    return {
+      key: item._id,
+      ...item,
+    };
+  });
   const removeCategory = (id: string | number) => {
     props.onRemove(id);
   };
-  // console.log(data);
+
   return (
-    <div>
-      {/* <button><a href="/admin/products/add">Add New Product</a></button> */}
-      <button>
+    <>
+      <Button type="primary" style={{ backgroundColor: "#14dbac" }}>
         <Link to={"/admin/categories/add"}>Add New Category</Link>
-      </button>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((category, index) => {
-            return (
-              <tr key={category._id}>
-                <td>{index + 1}</td>
-                <td>{category.name}</td>
-                <td>
-                  <button onClick={() => removeCategory(category._id)}>
-                    Delete
-                  </button>
-                  <button>
-                    <Link to={`/admin/categories/update/${category._id}`}>
-                      Update
-                    </Link>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+      </Button>
+      <Table columns={columns} dataSource={data1} />;
+    </>
   );
 };
 export default CategoryManagement;

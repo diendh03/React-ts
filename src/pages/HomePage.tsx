@@ -7,7 +7,7 @@ const HomePage = (props: any) => {
   return (
     <>
       <section className="bg-white py-8">
-        <div className="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+        <div className="container mx-auto border-solid  border-t-2   border-[#D1D5DB] flex items-center flex-wrap pt-4 pb-12">
           <nav id="store" className="w-full z-30 top-0 px-6 py-1">
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
               <a

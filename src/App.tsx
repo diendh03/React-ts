@@ -42,10 +42,13 @@ import UpdateCategory from "./admin/category/updateCategory";
 import UserList from "./admin/product/productMana";
 import CartList from "./pages/CartList";
 import PrivateRouterMem from "./components/PrivateRouterMem";
+import ShopPage from "./pages/ShopPage";
+import FindCateById from "./components/FindCateById";
+import FindAllCate from "./components/FindAllCate";
 
 function App() {
   const navigate = useNavigate();
-  const [products, setProduct] = useState<IProduct[]>([]);
+  const [products, setProduct] = useState<any>([]);
   const [categories, setCategory] = useState<ICate[]>([]);
 
   useEffect(() => {
@@ -57,7 +60,7 @@ function App() {
   const onHandleRemove = (id: number | string) => {
     deleteProduct(id)
       .then(() => {
-        setProduct(products.filter((product) => product._id !== id));
+        setProduct(products.filter((product: IProduct) => product._id !== id));
       })
       .then(() => alert("Xoa thanh cong"));
   };
@@ -66,7 +69,9 @@ function App() {
   };
   const onHandleUpdate = (product: IProduct) => {
     // console.log(product);
-    const newData = products.filter((pro) => pro._id != product._id);
+    const newData = products.docs.filter(
+      (pro: IProduct) => pro._id != product._id
+    );
     // console.log(newData);
     updateProduct(product).then(() => setProduct([...newData, product]));
   };
@@ -119,6 +124,12 @@ function App() {
   const handleClearCart = () => {
     setCartItems([]);
   };
+  const handleRemoveFromCart = (id: string) => {
+    setCartItems(
+      cartItems.filter((item: ICartItem) => item.product._id !== id)
+    );
+    alert("Đã xóa sản phẩm khỏi giỏ hàng");
+  };
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -143,7 +154,7 @@ function App() {
         }
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        alert(error.response.data.messages);
       });
   };
   const onHandleLogOut = () => {
@@ -159,11 +170,18 @@ function App() {
         //Client
         <Route path="/" element={<ClientLayout />}>
           <Route index element={<HomePage products={products} />} />
+          <Route path="/shop" element={<ShopPage categories={categories} />}>
+            <Route index element={<FindAllCate />} />
+            <Route path=":id" element={<FindCateById />} />
+          </Route>
           <Route
             path="/carts"
             element={
               <PrivateRouterMem>
-                <CartList item={cartItems} />
+                <CartList
+                  item={cartItems}
+                  onRemoveFromCart={handleRemoveFromCart}
+                />
               </PrivateRouterMem>
             }
           />
@@ -222,7 +240,11 @@ function App() {
             <Route
               path="update/:id"
               element={
-                <UpdateProduct products={products} onUpdate={onHandleUpdate} />
+                <UpdateProduct
+                  products={products}
+                  categories={categories}
+                  onUpdate={onHandleUpdate}
+                />
               }
             />
           </Route>

@@ -25,12 +25,12 @@ const HeaderLayout = () => {
           <nav>
             <ul className="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
               <li>
-                <a
+                <Link
                   className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                  href="#"
+                  to="/shop"
                 >
                   Shop
-                </a>
+                </Link>
               </li>
               <li>
                 <a

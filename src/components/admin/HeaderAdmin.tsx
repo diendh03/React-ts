@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  DesktopOutlined,
-  PieChartOutlined,
   DashboardOutlined,
   MenuOutlined,
   MobileOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { Outlet } from "react-router-dom";
-
-const { Header, Content, Footer, Sider } = Layout;
+import { Layout, Menu } from "antd";
+const { Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(

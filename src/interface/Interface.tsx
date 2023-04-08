@@ -5,7 +5,7 @@ interface IProduct {
   productName: string;
   price: number;
   originalPrice: number;
-  description: string;
+  description: string | undefined;
   image: string;
   categoryId: string;
 }

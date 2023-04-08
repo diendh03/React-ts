@@ -6,6 +6,7 @@ import { Markup } from "interweave";
 import { isAuthenticate } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 import { getProductId } from "../api/product";
+import parse from "html-react-parser";
 const ProductDetailPage = (props: any) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const ProductDetailPage = (props: any) => {
     setQuantity(Number(e.target.value));
   };
   const [product, setProduct] = useState<IProduct>();
-  const { register, handleSubmit } = useForm<any>();
+  const { register, handleSubmit } = useForm();
 
   const handleAddToCartClick = () => {
     const user = isAuthenticate();
@@ -24,11 +25,13 @@ const ProductDetailPage = (props: any) => {
     }
     props.onAddToCart(product, quantity);
     alert("Đã thêm sản phẩm vào giỏ hàng");
-    navigate("/carts");
   };
+
   useEffect(() => {
     getProductId(id).then(({ data }) => {
       setProduct(data.data);
+      // const des = document.querySelector(".des");
+      // des?.innerHTML
     });
   }, []);
   return (
@@ -105,6 +108,29 @@ const ProductDetailPage = (props: any) => {
                 />
               </li>
             </ul>
+            <div className="flex flex-col mt-10 bg-gray-100 p-4">
+              <h1 className="text-center text-red-500 text-lg font-bold mb-4">
+                ĐẶC ĐIỂM NỔI BẬT
+              </h1>
+              <ul>
+                <li className="text-sm">
+                  Camera chất lượng, bắt trọn từng khoảng khắc - Cụm 4 camera
+                  với cảm biến chính lên đến 108 MP
+                </li>
+                <li className="text-sm">
+                  Thưởng thức không gian giải trí cực đỉnh - Màn hình lớn 6.7
+                  inch, độ phân giải Full HD+, 120Hz mượt mà
+                </li>
+                <li className="text-sm">
+                  Cấu hình {product?.productName} được nâng cấp mạnh với chip
+                  Snapdragon 778G, RAM lên đến 8 GB
+                </li>
+                <li className="text-sm">
+                  Chiến game thoải mái không lo gián đoạn - Viên pin lớn 5000
+                  mAh, hỗ trợ sạc nhanh 25 W
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="lg:sticky lg:top-0">
@@ -144,8 +170,10 @@ const ProductDetailPage = (props: any) => {
             </form>
           </div>
 
-          <div className="lg:col-span-3">
-            <div className="prose max-w-none"></div>
+          <div className="lg:col-span-3 border-solid  border-t-2  border-[#D1D5DB]">
+            <div className="des prose max-w-none">
+              <Markup content={product?.description} />
+            </div>
           </div>
         </div>
       </div>

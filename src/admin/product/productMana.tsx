@@ -12,6 +12,9 @@ function UserList(props: any) {
   useEffect(() => {
     getUsersList();
   }, [page]);
+  const removeProduct = (id: string | number) => {
+    props.onRemove(id);
+  };
   const getUsersList = async (kw = keyword, pg = page, pgSize = pageSize) => {
     const params = {
       page: pg,
@@ -79,16 +82,34 @@ function UserList(props: any) {
             <table className="min-w-full leading-normal">
               <thead>
                 <tr>
-                  <th className={thCls}>#</th>
                   <th className={thCls}>Product Name</th>
+                  <th className={thCls}>Price </th>
+                  <th className={thCls}>Image</th>
+                  <th className={thCls}>Action</th>
                 </tr>
               </thead>
               <tbody className="customer-list">
                 {usersList?.map((item: any, index: any) => {
                   return (
                     <tr key={item._id}>
-                      <td className={tdCls}>{item._id as string}</td>
                       <td className={tdCls}>{item.productName}</td>
+                      <td className={tdCls}>{item.price}</td>
+                      <td className={tdCls}>
+                        <img className="w-20" src={item.image} alt="" />
+                      </td>
+                      <td className={tdCls}>
+                        <button
+                          className="ml-4 align-middle bg-red-500 hover:bg-red-600 text-center px-4 py-2 text-white text-sm font-semibold rounded inline-block shadow-lg"
+                          onClick={() => removeProduct(item._id)}
+                        >
+                          Delete
+                        </button>
+                        <button className="ml-4 align-middle bg-green-500 hover:bg-red-600 text-center px-4 py-2 text-white text-sm font-semibold rounded inline-block shadow-lg">
+                          <Link to={`/admin/products/update/${item._id}`}>
+                            Update
+                          </Link>
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
