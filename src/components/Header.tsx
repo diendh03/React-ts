@@ -1,6 +1,54 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { isAuthenticate } from "../utils/localStorage";
 const HeaderLayout = () => {
+  const user = isAuthenticate();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    if (user) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("cartItems");
+      navigate("/");
+    }
+  };
+  const checkUser = () => {
+    if (user) {
+      return (
+        <button
+          onClick={() => handleLogOut()}
+          className="pl-3 inline-block no-underline hover:text-black "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            style={{ width: "20px" }}
+          >
+            <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+          </svg>
+        </button>
+      );
+    } else {
+      return (
+        <Link
+          className="inline-block no-underline hover:text-black"
+          to="/signin"
+        >
+          <svg
+            className="fill-current hover:text-black"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <circle fill="none" cx="12" cy="7" r="3" />
+            <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
+          </svg>
+        </Link>
+      );
+    }
+  };
+
   return (
     <nav id="header" className="w-full z-30 top-0 py-1">
       <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
@@ -63,7 +111,7 @@ const HeaderLayout = () => {
         </div>
 
         <div className="order-2 md:order-3 flex items-center" id="nav-content">
-          <Link
+          {/* <Link
             className="inline-block no-underline hover:text-black"
             to="/signin"
           >
@@ -77,8 +125,8 @@ const HeaderLayout = () => {
               <circle fill="none" cx="12" cy="7" r="3" />
               <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
             </svg>
-          </Link>
-
+          </Link> */}
+          {checkUser()}
           <Link
             className="pl-3 inline-block no-underline hover:text-black"
             to="/carts"

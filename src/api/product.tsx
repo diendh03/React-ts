@@ -1,7 +1,16 @@
 import { IProduct } from "../interface/Interface";
 import instance from "./instance";
-const getAllProduct = (params?: any) => {
-  if (params) return instance.get(`/products?_page=${params.page}`);
+const getAllProduct = (params?: any, key?: any) => {
+  if (params) {
+    return instance.get(`/products?_page=${params.page}`);
+  }
+  if (key) {
+    return instance.get(`/products?_keyword=${key}`);
+  }
+  return instance.get("/products");
+};
+const getAllProductByName = (key?: any) => {
+  if (key) return instance.get(`/products?_keyword=${key}`);
   return instance.get("/products");
 };
 const getProductId = (id: string | undefined) => {

@@ -11,8 +11,8 @@ const ShopPage = (props: any) => {
         style={{ marginTop: "100px", paddingBottom: "30px" }}
       >
         <aside
-          className="relative bg-sidebar h-screen w-70 hidden sm:block "
-          style={{ maxWidth: "300px", paddingBlock: "100px" }}
+          className="relative bg-sidebar h-screen w-70 hidden sm:block border-solid  border-r-2  border-[#D1D5DB] "
+          style={{ width: "200px", paddingTop: "100px" }}
         >
           <label className="mb-3 block text-base font-bold text-[#07074D]">
             Category Name
@@ -40,7 +40,7 @@ const ShopPage = (props: any) => {
             })}
           </nav>
         </aside>
-        <div style={{ marginLeft: "150px" }}>
+        <div style={{ marginLeft: "150px", maxWidth: "1000px" }}>
           {/* <FindCateById /> */}
           <Outlet />
         </div>

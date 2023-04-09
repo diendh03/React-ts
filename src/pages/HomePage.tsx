@@ -3,7 +3,16 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { IProduct } from "../models";
 import Product from "../components/products";
+import { Pagination } from "antd";
 const HomePage = (props: any) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  const startIndex = (currentPage - 1) * 3;
+  const endIndex = startIndex + 3;
+  const currentProducts = props.products.docs?.slice(startIndex, endIndex);
   return (
     <>
       <section className="bg-white py-8">
@@ -50,11 +59,19 @@ const HomePage = (props: any) => {
               </div>
             </div>
           </nav>
-          {props.products.docs?.map((product: any) => (
+          {currentProducts?.map((product: any) => (
             <Product key={product._id} data={product} />
           ))}
         </div>
       </section>
+      <div className="flex  justify-center ">
+        <Pagination
+          current={currentPage}
+          onChange={handlePageChange}
+          pageSize={3}
+          total={props.products.totalDocs}
+        />
+      </div>
     </>
   );
 };
