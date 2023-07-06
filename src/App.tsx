@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 //Layout
-import HomePage from "./pages/HomePage";
-import ProductDetailPage from "./pages/ProductDetailPage";
-import Dashboard from "./admin/Dashboard";
+import HomePage from "./pages/client/HomePage";
+import ProductDetailPage from "./pages/client/ProductDetailPage";
+import Dashboard from "./pages/admin/Dashboard";
 //SanPham
-import ProductManagement from "./admin/product/productManagement";
-import AddProduct from "./admin/product/AddProduct";
-import UpdateProduct from "./admin/product/UpdateProduct";
+import ProductManagement from "./pages/admin/product/productManagement";
+import AddProduct from "./pages/admin/product/AddProduct";
+import UpdateProduct from "./pages/admin/product/UpdateProduct";
 //DangNhap
-import SignIn from "./pages/SignIn";
-import SignUp, { SignupForm } from "./pages/SignUp";
+import SignIn from "./pages/client/SignIn";
+import SignUp, { SignupForm } from "./pages/client/SignUp";
 import PrivateRouter from "./components/PrivateRouter";
 import { authenticated, isAuthenticate } from "./utils/localStorage";
 //Layout
@@ -36,13 +36,13 @@ import {
 } from "./api/category";
 import { useNavigate } from "react-router-dom";
 //Danhmuc
-import AddCategory from "./admin/category/addCategory";
-import CategoryManagement from "./admin/category/categoryManagement";
-import UpdateCategory from "./admin/category/updateCategory";
-import UserList from "./admin/product/productMana";
-import CartList from "./pages/CartList";
+import AddCategory from "./pages/admin/category/addCategory";
+import CategoryManagement from "./pages/admin/category/categoryManagement";
+import UpdateCategory from "./pages/admin/category/updateCategory";
+import UserList from "./pages/admin/product/productMana";
+import CartList from "./pages/client/CartList";
 import PrivateRouterMem from "./components/PrivateRouterMem";
-import ShopPage from "./pages/ShopPage";
+import ShopPage from "./pages/client/ShopPage";
 import FindCateById from "./components/FindCateById";
 import FindAllCate from "./components/FindAllCate";
 
@@ -174,6 +174,7 @@ function App() {
             <Route index element={<FindAllCate />} />
             <Route path=":id" element={<FindCateById />} />
           </Route>
+
           <Route
             path="/carts"
             element={

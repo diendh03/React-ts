@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signupSchema } from "../schema/signup";
-import { IUser } from "../interface/Interface";
+import { signupSchema } from "../../schema/signup";
+import { IUser } from "../../interface/Interface";
 export type SignupForm = Yup.InferType<typeof signupSchema>;
 type Props = {
   onAdd: (data: SignupForm) => void;

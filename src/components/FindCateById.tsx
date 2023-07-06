@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAllCategory, getCategory } from "../api/category";
 
-import Product from "./products";
+import Product from "./ProductItem";
 
 const FindCateById = (props: any) => {
   const [category, setCategory] = useState([]);

@@ -41,7 +41,7 @@ const FooterLayout = () => {
             <div className="mt-6 flex justify-center gap-4 lg:justify-start">
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href=""
+                href="https://www.facebook.com/dohuudien03"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -103,7 +103,7 @@ const FooterLayout = () => {
 
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href=""
+                href="https://github.com/diendh03"
                 target="_blank"
                 rel="noreferrer"
               >

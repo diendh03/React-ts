@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ICate } from "../../interface/Interface";
+import { ICate } from "../../../interface/Interface";
 import { Table } from "antd";
 import { Button, Space, Popconfirm, message } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";

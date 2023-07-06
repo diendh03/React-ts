@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAllCategory, getCategory } from "../api/category";
 import { getAllProduct } from "../api/product";
-import Product from "./products";
+import Product from "./ProductItem";
 import { ICate } from "../interface/Interface";
 import { Input, Space } from "antd";
 const { Search } = Input;

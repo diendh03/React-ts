@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { IProduct } from "../interface/Interface";
+import { IProduct } from "../../interface/Interface";
 import { Markup } from "interweave";
-import { isAuthenticate } from "../utils/localStorage";
+import { isAuthenticate } from "../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
-import { getProductId } from "../api/product";
+import { getProductId } from "../../api/product";
 import parse from "html-react-parser";
 const ProductDetailPage = (props: any) => {
   const { id } = useParams();

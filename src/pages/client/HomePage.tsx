@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { IProduct } from "../models";
-import Product from "../components/products";
+import { IProduct } from "../../models";
+import Product from "../../components/ProductItem";
 import { Pagination } from "antd";
 const HomePage = (props: any) => {
   const [currentPage, setCurrentPage] = useState(1);

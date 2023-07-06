@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ICate } from "../../interface/Interface";
+import { ICate } from "../../../interface/Interface";
 import { useNavigate, useParams } from "react-router-dom";
 interface IPropCategory {
   category: ICate[];

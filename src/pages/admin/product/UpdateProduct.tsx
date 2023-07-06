@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ICate, IProduct } from "../../interface/Interface";
+import { ICate, IProduct } from "../../../interface/Interface";
 interface IPropProduct {
   products: any;
   categories: ICate[];

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllProduct } from "../../api/product";
+import { getAllProduct } from "../../../api/product";
 import { Link } from "react-router-dom";
 
 function UserList(props: any) {

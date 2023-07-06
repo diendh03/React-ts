@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ICartItem, IProduct } from "../interface/Interface";
+import { ICartItem, IProduct } from "../../interface/Interface";
 
 type Props = {
   name: string;

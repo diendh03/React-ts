@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import FindCateById from "../components/FindCateById";
-import { ICate } from "../interface/Interface";
+import FindCateById from "../../components/FindCateById";
+import { ICate } from "../../interface/Interface";
 
 const ShopPage = (props: any) => {
   return (

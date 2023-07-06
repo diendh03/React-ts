@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ICate, IProduct } from "../../interface/Interface";
-import { getAllCategory } from "../../api/category";
+import { ICate, IProduct } from "../../../interface/Interface";
+import { getAllCategory } from "../../../api/category";
 interface IPropProduct {
   categories: ICate[];
   onAdd: (product: IProduct) => void;
